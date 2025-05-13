@@ -4,32 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ارتباط با ما</title>
+    <!-- فونت ایران سنس -->
     <link href="https://cdn.fontcdn.ir/Font/Persian/Iranian-Sans/Iranian-Sans.css" rel="stylesheet">
+    <!-- آیکون‌های فونتآوسام -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* تمام استایلهای قبلی بدون تغییر */
-        
-        /* بهبود افکتهای موبایل */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Iranian Sans", sans-serif;
+            direction: rtl;
+        }
+
+        body {
+            background-color: #262626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 350px;
+            background-color: #2f363e;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 25px 25px 55px rgba(0, 0, 0, 0.25),
+                        10px 10px 50px rgba(0, 0, 0, 0.25),
+                        inset 5px 5px 10px rgba(0, 0, 0, 0.5),
+                        inset 5px 5px 20px rgba(255, 255, 255, 0.2),
+                        inset -5px -5px 15px rgba(0, 0, 0, 0.75);
+        }
+
+        .container h2 {
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .list-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .container .list {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            height: 60px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .container .list:active {
+            transform: scale(0.98);
+        }
+
+        .container .list::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: #b11515;
+            border-radius: 50%;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.6s;
+            z-index: 1;
+        }
+
+        .container .list .rank {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s;
+        }
+
+        .container .list .rank i {
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .fa-instagram { color: #E1306C; }
+        .fa-telegram { color: #0088cc; }
+        .fa-phone-alt { color: #25D366; }
+
+        .text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            z-index: 3;
+            padding-left: 5px;
+        }
+
+        .text h4 {
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .hidden-text {
+            font-size: 16px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+            position: absolute;
+            padding-right: 60px;
+        }
+
+        /* استایل برای دستگاه‌های لمسی */
         @media (hover: none) {
-            .list.active {
-                transform: scale(0.98);
-            }
-            
             .list.active::before {
                 width: 100% !important;
                 height: 100% !important;
                 left: 0 !important;
                 border-radius: 50px !important;
             }
-            
+
             .list.active .hidden-text {
                 opacity: 1 !important;
                 transform: translateY(0) !important;
             }
-            
+
             .list.active .text h4 {
                 opacity: 0 !important;
                 transform: translateY(-10px) !important;
+            }
+        }
+
+        /* رسپانسیو برای موبایل */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .container h2 {
+                font-size: 22px;
+            }
+            
+            .text h4 {
+                font-size: 14px;
+            }
+            
+            .hidden-text {
+                font-size: 12px;
+                padding-right: 40px;
             }
         }
     </style>
@@ -70,62 +205,57 @@
     </div>
 
     <script>
-    const lists = document.querySelectorAll('.list');
-    let activeTimer;
+        const lists = document.querySelectorAll('.list');
+        let activeTimer;
 
-    const activateItem = (item) => {
-        item.classList.add('active');
-        // نمایش افکت و متن مخفی بدون بازکردن لینک
-    };
+        const activateItem = (item) => {
+            item.classList.add('active');
+        };
 
-    const deactivateItem = (item) => {
-        item.classList.remove('active');
-        clearTimeout(activeTimer);
-    };
+        const deactivateItem = (item) => {
+            item.classList.remove('active');
+            clearTimeout(activeTimer);
+        };
 
-    const openLink = (item) => {
-        const link = item.closest('.list-wrapper').href;
-        window.open(link, '_blank');
-    };
+        const openLink = (item) => {
+            const link = item.closest('.list-wrapper').href;
+            window.open(link, '_blank');
+        };
 
-    lists.forEach(list => {
-        let tapTimer;
-        let isLongPress = false;
+        lists.forEach(list => {
+            let tapTimer;
+            let isLongPress = false;
 
-        // برای دستگاه‌های لمسی
-        list.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            isLongPress = false;
-            
-            // نمایش افکت پس از 300ms
-            tapTimer = setTimeout(() => {
-                activateItem(list);
-                isLongPress = true;
-            }, 300);
-        });
+            // هندلرهای لمسی
+            list.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                isLongPress = false;
+                tapTimer = setTimeout(() => {
+                    activateItem(list);
+                    isLongPress = true;
+                }, 300); // نمایش افکت بعد از 300ms
+            });
 
-        list.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            clearTimeout(tapTimer);
-            
-            if (isLongPress) {
-                // اگر لمس طولانی بود، لینک باز شود
+            list.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                clearTimeout(tapTimer);
+                
+                if (isLongPress) {
+                    openLink(list);
+                    setTimeout(() => deactivateItem(list), 300);
+                } else {
+                    deactivateItem(list);
+                }
+            });
+
+            // هندلرهای دسکتاپ
+            list.addEventListener('mouseenter', () => activateItem(list));
+            list.addEventListener('mouseleave', () => deactivateItem(list));
+            list.addEventListener('click', (e) => {
+                e.preventDefault();
                 openLink(list);
-                deactivateItem(list);
-            } else {
-                // اگر لمس کوتاه بود، فقط افکت نمایش داده شود
-                deactivateItem(list);
-            }
+            });
         });
-
-        // برای دسکتاپ
-        list.addEventListener('mouseenter', () => activateItem(list));
-        list.addEventListener('mouseleave', () => deactivateItem(list));
-        list.addEventListener('click', (e) => {
-            e.preventDefault();
-            openLink(list);
-        });
-    });
-</script>
+    </script>
 </body>
 </html>
