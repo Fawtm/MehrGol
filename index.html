@@ -121,7 +121,7 @@
             padding-right: 60px;
         }
 
-        /* هاور برای دسکتاپ */
+        /* هاور دسکتاپ */
         .container .list:hover::before {
             width: 100%;
             height: 100%;
@@ -139,7 +139,7 @@
             transform: translateY(-10px);
         }
 
-        /* استایل برای موبایل */
+        /* استایل موبایل */
         @media (hover: none) {
             .list.active::before {
                 width: 100% !important;
@@ -217,7 +217,7 @@
 
     <script>
         const lists = document.querySelectorAll('.list');
-        let activeTimer;
+        let linkTimer;
 
         const activateItem = (item) => {
             item.classList.add('active');
@@ -225,39 +225,50 @@
 
         const deactivateItem = (item) => {
             item.classList.remove('active');
-            clearTimeout(activeTimer);
         };
 
         lists.forEach(list => {
-            let tapTimer;
             let isLongPress = false;
 
             // هندلرهای لمسی
             list.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 isLongPress = false;
-                tapTimer = setTimeout(() => {
-                    activateItem(list);
+                activateItem(list); // نمایش فوری افکت و متن
+
+                // تایمر بازکردن لینک پس از 700ms
+                linkTimer = setTimeout(() => {
                     isLongPress = true;
-                }, 300);
+                    const link = list.closest('.list-wrapper').href;
+                    window.open(link, '_blank');
+                    deactivateItem(list);
+                }, 700);
             });
 
             list.addEventListener('touchend', (e) => {
                 e.preventDefault();
-                clearTimeout(tapTimer);
-                
-                if (isLongPress) {
-                    const link = list.closest('.list-wrapper').href;
-                    window.open(link, '_blank');
+                clearTimeout(linkTimer);
+
+                if (!isLongPress) {
+                    // اگر لمس کوتاه بود، افکت پس از 300ms محو شود
                     setTimeout(() => deactivateItem(list), 300);
-                } else {
-                    deactivateItem(list);
                 }
+            });
+
+            list.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                clearTimeout(linkTimer);
+                deactivateItem(list);
             });
 
             // هندلرهای دسکتاپ
             list.addEventListener('mouseenter', () => activateItem(list));
             list.addEventListener('mouseleave', () => deactivateItem(list));
+            list.addEventListener('click', (e) => {
+                e.preventDefault();
+                const link = list.closest('.list-wrapper').href;
+                window.open(link, '_blank');
+            });
         });
     </script>
 </body>
