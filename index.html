@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ارتباط با ما</title>
-    <!-- فونت ایران سنس -->
     <link href="https://cdn.fontcdn.ir/Font/Persian/Iranian-Sans/Iranian-Sans.css" rel="stylesheet">
-    <!-- آیکون‌های فونتآوسام -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -58,10 +56,6 @@
             height: 60px;
             cursor: pointer;
             transition: transform 0.2s;
-        }
-
-        .container .list:active {
-            transform: scale(0.98);
         }
 
         .container .list::before {
@@ -127,7 +121,25 @@
             padding-right: 60px;
         }
 
-        /* استایل برای دستگاه‌های لمسی */
+        /* هاور برای دسکتاپ */
+        .container .list:hover::before {
+            width: 100%;
+            height: 100%;
+            left: 0;
+            border-radius: 50px;
+        }
+
+        .container .list:hover .hidden-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container .list:hover .text h4 {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* استایل برای موبایل */
         @media (hover: none) {
             .list.active::before {
                 width: 100% !important;
@@ -147,7 +159,6 @@
             }
         }
 
-        /* رسپانسیو برای موبایل */
         @media (max-width: 480px) {
             .container {
                 width: 90%;
@@ -217,11 +228,6 @@
             clearTimeout(activeTimer);
         };
 
-        const openLink = (item) => {
-            const link = item.closest('.list-wrapper').href;
-            window.open(link, '_blank');
-        };
-
         lists.forEach(list => {
             let tapTimer;
             let isLongPress = false;
@@ -233,7 +239,7 @@
                 tapTimer = setTimeout(() => {
                     activateItem(list);
                     isLongPress = true;
-                }, 300); // نمایش افکت بعد از 300ms
+                }, 300);
             });
 
             list.addEventListener('touchend', (e) => {
@@ -241,7 +247,8 @@
                 clearTimeout(tapTimer);
                 
                 if (isLongPress) {
-                    openLink(list);
+                    const link = list.closest('.list-wrapper').href;
+                    window.open(link, '_blank');
                     setTimeout(() => deactivateItem(list), 300);
                 } else {
                     deactivateItem(list);
@@ -251,10 +258,6 @@
             // هندلرهای دسکتاپ
             list.addEventListener('mouseenter', () => activateItem(list));
             list.addEventListener('mouseleave', () => deactivateItem(list));
-            list.addEventListener('click', (e) => {
-                e.preventDefault();
-                openLink(list);
-            });
         });
     </script>
 </body>
