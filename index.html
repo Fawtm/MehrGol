@@ -1,48 +1,263 @@
-<script>
-    // تشخیص دستگاه لمسی و افزودن افکت
-    const isTouchDevice = 'ontouchstart' in window;
-    const lists = document.querySelectorAll('.list');
-
-    lists.forEach(list => {
-        const link = list.closest('.list-wrapper').href; // دریافت لینک از تگ <a>
-
-        // هندلر مشترک برای باز کردن لینک
-        const openLink = () => {
-            window.open(link, '_blank');
-        };
-
-        if (isTouchDevice) {
-            let timer;
-            
-            // هندلر لمسی
-            list.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                list.classList.add('hover-effect');
-                timer = setTimeout(openLink, 300);
-            });
-
-            list.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                clearTimeout(timer);
-                list.classList.remove('hover-effect');
-            });
-
-            list.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                clearTimeout(timer);
-                list.classList.remove('hover-effect');
-            });
-
-        } else {
-            // هندلر کلیک برای دسکتاپ
-            list.addEventListener('click', (e) => {
-                e.preventDefault();
-                list.classList.add('hover-effect');
-                setTimeout(() => {
-                    openLink();
-                    list.classList.remove('hover-effect');
-                }, 300);
-            });
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارتباط با ما</title>
+    <link href="https://cdn.fontcdn.ir/Font/Persian/Iranian-Sans/Iranian-Sans.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Iranian Sans", sans-serif;
+            direction: rtl;
         }
-    });
-</script>
+
+        body {
+            background-color: #262626;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .container {
+            width: 350px;
+            background-color: #2f363e;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 25px 25px 55px rgba(0, 0, 0, 0.25),
+                        10px 10px 50px rgba(0, 0, 0, 0.25),
+                        inset 5px 5px 10px rgba(0, 0, 0, 0.5),
+                        inset 5px 5px 20px rgba(255, 255, 255, 0.2),
+                        inset -5px -5px 15px rgba(0, 0, 0, 0.75);
+            transform: translateY(20px);
+            animation: slideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+
+        .container h2 {
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .list-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .container .list {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            height: 60px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .container .list:active {
+            transform: scale(0.98);
+        }
+
+        .container .list::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: #b11515;
+            border-radius: 50%;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.6s;
+            z-index: 1;
+        }
+
+        .container .list .rank {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s;
+        }
+
+        .container .list .rank i {
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .fa-instagram { color: #E1306C; }
+        .fa-telegram { color: #0088cc; }
+        .fa-phone-alt { color: #25D366; }
+
+        .text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            z-index: 3;
+            padding-left: 5px;
+        }
+
+        .text h4 {
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .hidden-text {
+            font-size: 16px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.3s;
+            position: absolute;
+            padding-right: 60px;
+        }
+
+        @media (hover: hover) {
+            .container .list:hover::before {
+                width: 100%;
+                height: 100%;
+                left: 0;
+                border-radius: 50px;
+            }
+            
+            .container .list:hover .rank {
+                transform: scale(0.7);
+                background: #262626;
+            }
+            
+            .container .list:hover .rank i {
+                transform: scale(1.1);
+            }
+            
+            .container .list:hover .text h4 {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            
+            .container .list:hover .hidden-text {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .list.hover-effect::before {
+            width: 100% !important;
+            height: 100% !important;
+            left: 0 !important;
+            border-radius: 50px !important;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            .container h2 {
+                font-size: 22px;
+            }
+            
+            .text h4 {
+                font-size: 14px;
+            }
+            
+            .hidden-text {
+                font-size: 12px;
+                padding-right: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ارتباط با ما</h2>
+
+        <a href="https://instagram.com/MehrGol_Organic" target="_blank" class="list-wrapper">
+            <div class="list">
+                <div class="rank"><i class="fab fa-instagram"></i></div>
+                <div class="text">
+                    <h4>پیج اینستاگرام</h4>
+                    <div class="hidden-text">MehrGol_Organic</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://t.me/MehrGol_Organic" target="_blank" class="list-wrapper">
+            <div class="list">
+                <div class="rank"><i class="fab fa-telegram"></i></div>
+                <div class="text">
+                    <h4>آیدی تلگرام</h4>
+                    <div class="hidden-text">MehrGol_Organic</div>
+                </div>
+            </div>
+        </a>
+
+        <a href="tel:+989123456789" class="list-wrapper">
+            <div class="list">
+                <div class="rank"><i class="fas fa-phone-alt"></i></div>
+                <div class="text">
+                    <h4>شماره تماس</h4>
+                    <div class="hidden-text">۰۹۱۲۳۴۵۶۷۸۹</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        // تشخیص دستگاه لمسی و افزودن افکت
+        const isTouchDevice = 'ontouchstart' in window;
+        const lists = document.querySelectorAll('.list');
+
+        lists.forEach(list => {
+            if (isTouchDevice) {
+                let timer;
+                
+                list.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    list.classList.add('hover-effect');
+                    timer = setTimeout(() => {
+                        window.location.href = list.parentElement.href;
+                    }, 300);
+                });
+
+                list.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    clearTimeout(timer);
+                    list.classList.remove('hover-effect');
+                });
+
+                list.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    clearTimeout(timer);
+                    list.classList.remove('hover-effect');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
