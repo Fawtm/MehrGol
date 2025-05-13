@@ -70,51 +70,62 @@
     </div>
 
     <script>
-        // اسکریپت پیشرفته با مدیریت کامل تعاملات
-        const lists = document.querySelectorAll('.list');
-        let activeTimer;
+    const lists = document.querySelectorAll('.list');
+    let activeTimer;
 
-        const activateItem = (item) => {
-            item.classList.add('active');
-            clearTimeout(activeTimer);
-            activeTimer = setTimeout(() => {
-                const link = item.closest('.list-wrapper').href;
-                window.open(link, '_blank');
-                deactivateItem(item);
-            }, 800); // زمان نمایش متن قبل از بازشدن لینک
-        };
+    const activateItem = (item) => {
+        item.classList.add('active');
+        // نمایش افکت و متن مخفی بدون بازکردن لینک
+    };
 
-        const deactivateItem = (item) => {
-            item.classList.remove('active');
-            clearTimeout(activeTimer);
-        };
+    const deactivateItem = (item) => {
+        item.classList.remove('active');
+        clearTimeout(activeTimer);
+    };
 
-        lists.forEach(list => {
-            // برای دستگاههای لمسی
-            list.addEventListener('touchstart', (e) => {
-                e.preventDefault();
+    const openLink = (item) => {
+        const link = item.closest('.list-wrapper').href;
+        window.open(link, '_blank');
+    };
+
+    lists.forEach(list => {
+        let tapTimer;
+        let isLongPress = false;
+
+        // برای دستگاه‌های لمسی
+        list.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isLongPress = false;
+            
+            // نمایش افکت پس از 300ms
+            tapTimer = setTimeout(() => {
                 activateItem(list);
-            });
-
-            list.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                deactivateItem(list);
-            });
-
-            list.addEventListener('touchcancel', (e) => {
-                e.preventDefault();
-                deactivateItem(list);
-            });
-
-            // برای دسکتاپ
-            list.addEventListener('mouseenter', () => activateItem(list));
-            list.addEventListener('mouseleave', () => deactivateItem(list));
-            list.addEventListener('click', (e) => {
-                e.preventDefault();
-                const link = list.closest('.list-wrapper').href;
-                window.open(link, '_blank');
-            });
+                isLongPress = true;
+            }, 300);
         });
-    </script>
+
+        list.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            clearTimeout(tapTimer);
+            
+            if (isLongPress) {
+                // اگر لمس طولانی بود، لینک باز شود
+                openLink(list);
+                deactivateItem(list);
+            } else {
+                // اگر لمس کوتاه بود، فقط افکت نمایش داده شود
+                deactivateItem(list);
+            }
+        });
+
+        // برای دسکتاپ
+        list.addEventListener('mouseenter', () => activateItem(list));
+        list.addEventListener('mouseleave', () => deactivateItem(list));
+        list.addEventListener('click', (e) => {
+            e.preventDefault();
+            openLink(list);
+        });
+    });
+</script>
 </body>
 </html>
