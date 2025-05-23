@@ -1,332 +1,214 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ارتباط با ما</title>
-    <link href="https://cdn.fontcdn.ir/Font/Persian/Iranian-Sans/Iranian-Sans.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Iranian Sans", sans-serif;
-            direction: rtl;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>پل ارتباطی ما</title> <!-- عنوان اصلاح شده -->
 
-        body {
-            background-color: #262626;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-        .container {
-            width: 350px;
-            background-color: #2f363e;
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 25px 25px 55px rgba(0, 0, 0, 0.25),
-                        10px 10px 50px rgba(0, 0, 0, 0.25),
-                        inset 5px 5px 10px rgba(0, 0, 0, 0.5),
-                        inset 5px 5px 20px rgba(255, 255, 255, 0.2),
-                        inset -5px -5px 15px rgba(0, 0, 0, 0.75);
-        }
+  <!-- Fonts & Icons -->
+  <link href="https://cdn.fontcdn.ir/Font/Persian/Iranian-Sans/Iranian-Sans.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-        .container h2 {
-            color: white;
-            font-size: 25px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Iranian Sans", Tahoma, sans-serif; /* افزودن فونت پشتیبان */
+      direction: rtl;
+    }
 
-        .list-wrapper {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
+    body {
+      background-color: #1A1A2E;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      padding: 20px;
+    }
 
-        .container .list {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            position: relative;
-            height: 60px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    .container {
+      width: 350px;
+      background: linear-gradient(to bottom, #2D1B7B 30%, #6A4C93 100%);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 25px 25px 55px rgba(0, 0, 0, 0.25),
+        10px 10px 50px rgba(0, 0, 0, 0.25),
+        inset 5px 5px 10px rgba(0, 0, 0, 0.5),
+        inset 5px 5px 20px rgba(255, 255, 255, 0.2),
+        inset -5px -5px 15px rgba(0, 0, 0, 0.75);
+      margin-top: -40px;
+    }
 
-        .container .list::before {
-            content: '';
-            width: 50px;
-            height: 50px;
-            background: #b11515;
-            border-radius: 50%;
-            position: absolute;
-            left: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 0.6s;
-            z-index: 1;
-        }
+    .container h2 {
+      color: white;
+      font-size: 25px;
+      text-align: center;
+      margin-bottom: 25px;
+      font-family: "Iranian Sans", Tahoma, sans-serif; /* تأکید بر فونت */
+      letter-spacing: -1px; /* بهبود فاصله حروف */
+    }
 
-        .container .list .rank {
-            width: 50px;
-            height: 50px;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-            transition: all 0.4s;
-        }
+    .list-wrapper {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      margin-bottom: 20px;
+    }
 
-        .container .list .rank i {
-            font-size: 24px;
-            transition: 0.3s;
-        }
+    .list {
+      display: flex;
+      align-items: center;
+      position: relative;
+      height: 60px;
+      cursor: pointer;
+      background: #FEA5D8;
+      border-radius: 30px;
+      padding: 12px;
+      transition: 0.3s;
+    }
 
-        .fa-instagram { color: #E1306C; }
-        .fa-telegram { color: #0088cc; }
-        .fa-phone-alt { color: #25D366; }
+    .list:hover {
+      transform: scale(1.02);
+    }
 
-        .text {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: white;
-            z-index: 3;
-            padding-left: 5px;
-        }
+    .rank {
+      width: 45px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .text h4 {
-            font-size: 16px;
-            transition: 0.3s;
-        }
+    .rank i {
+      font-size: 22px;
+    }
 
-        .hidden-text {
-            font-size: 16px;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: 0.3s;
-            position: absolute;
-            padding-right: 60px;
-            user-select: text;
-            -webkit-user-select: text;
-        }
+    .fa-instagram { color: #E1306C; }
+    .fa-telegram { color: #0088cc; }
+    .fa-phone-alt { color: #25D366; }
 
-        /* استایل‌های فعال برای موبایل */
-        .list.persistent::before {
-            width: 100% !important;
-            height: 100% !important;
-            left: 0 !important;
-            border-radius: 50px !important;
-        }
+    .text {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding-right: 10px;
+    }
 
-        .list.persistent .hidden-text {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
+    .text h4 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
 
-        .list.persistent .text h4 {
-            opacity: 0 !important;
-            transform: translateY(-10px) !important;
-        }
+    .hidden-text {
+      font-size: 15px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideUp 0.5s ease 2s forwards;
+      color: #FFFFFF;
+    }
 
-        @media (max-width: 480px) {
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-            
-            .container h2 {
-                font-size: 22px;
-            }
-            
-            .text h4 {
-                font-size: 14px;
-            }
-            
-            .hidden-text {
-                font-size: 12px;
-                padding-right: 40px;
-            }
-        }
-        .guide {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            padding: 12px 25px;
-            border-radius: 25px;
-            color: #fff;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
-            animation: guideFade 1.5s ease-out;
-        }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes guideFade {
-            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
+    .mobile-help {
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      font-size: 13px;
+      position: fixed;
+      top: 85vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      background: #29294eaa;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      animation: smoothExit 1.2s cubic-bezier(0.4, 0, 0.2, 1) 6s forwards;
+      z-index: 10;
+    }
 
-        .guide i {
-            font-size: 16px;
-        }
+    @keyframes smoothExit {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
 
-        @media (max-width: 480px) {
-            .guide {
-                width: 85%;
-                text-align: center;
-                flex-direction: column;
-                padding: 15px;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .mobile-help { top: 80vh; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>ارتباط با ما</h2>
+  <div class="container">
+    <h2>پل ارتباطی ما 🌸</h2>
 
-        <a href="https://instagram.com/MehrGol_Organic" target="_blank" class="list-wrapper">
-            <div class="list">
-                <div class="rank"><i class="fab fa-instagram"></i></div>
-                <div class="text">
-                    <h4>پیج اینستاگرام</h4>
-                    <div class="hidden-text">MehrGol_Organic</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://t.me/MehrGol_Organic" target="_blank" class="list-wrapper">
-            <div class="list">
-                <div class="rank"><i class="fab fa-telegram"></i></div>
-                <div class="text">
-                    <h4>آیدی تلگرام</h4>
-                    <div class="hidden-text">MehrGol_Organic</div>
-                </div>
-            </div>
-        </a>
-
-        <a href="tel:+989961363867" class="list-wrapper">
-            <div class="list">
-                <div class="rank"><i class="fas fa-phone-alt"></i></div>
-                <div class="text">
-                    <h4>شماره تماس</h4>
-                    <div class="hidden-text">09961363867</div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="guide">
-        <div>
-            <i class="fas fa-hand-point-up"></i>
-            لمس کوتاه = مشاهده اطلاعات
+    <a class="list-wrapper" id="instagram-link">
+      <div class="list">
+        <div class="rank"><i class="fab fa-instagram"></i></div>
+        <div class="text">
+          <h4>پیج اینستاگرام</h4>
+          <div class="hidden-text">MehrGol_Organic</div>
         </div>
-        <div>
-            <i class="fas fa-hourglass-start"></i>
-            لمس طولانی = بازکردن لینک
+      </div>
+    </a>
+
+    <a class="list-wrapper" id="telegram-link">
+      <div class="list">
+        <div class="rank"><i class="fab fa-telegram"></i></div>
+        <div class="text">
+          <h4>آیدی تلگرام</h4>
+          <div class="hidden-text">MehrGol_Organic</div>
         </div>
-    </div>
+      </div>
+    </a>
 
-    <script>
-        const lists = document.querySelectorAll('.list');
-        const isTouchDevice = 'ontouchstart' in window;
-        let longPressTimer;
-        let activeItem = null;
+    <a class="list-wrapper" href="tel:+989961363867">
+      <div class="list">
+        <div class="rank"><i class="fas fa-phone-alt"></i></div>
+        <div class="text">
+          <h4>شماره تماس</h4>
+          <div class="hidden-text">۰۹۹۶۱۳۶۳۸۶۷</div>
+        </div>
+      </div>
+    </a>
+  </div>
 
-        // فعال‌سازی فقط برای موبایل
-        if(isTouchDevice) {
-            // فعال‌سازی نمایش متن
-            const activatePersistent = (item) => {
-                if(activeItem) activeItem.classList.remove('persistent');
-                item.classList.add('persistent');
-                activeItem = item;
-            };
+  <div class="mobile-help">
+    👆 لمس کنید و وارد شوید!
+  </div>
 
-            // غیرفعال‌سازی نمایش متن
-            const deactivatePersistent = () => {
-                if(activeItem) activeItem.classList.remove('persistent');
-                activeItem = null;
-            };
+  <script>
+    // تشخیص دستگاه و تنظیم لینک‌ها
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    // تنظیم لینک اینستاگرام
+    const instagramLink = document.getElementById('instagram-link');
+    instagramLink.href = isMobile ? 
+      'instagram://user?username=MehrGol_Organic' : 
+      'https://instagram.com/MehrGol_Organic';
 
-            // کپی متن
-            lists.forEach(list => {
-                const hiddenText = list.querySelector('.hidden-text');
-                hiddenText.addEventListener('click', (e) => {
-                    const text = e.target.innerText;
-                    navigator.clipboard.writeText(text).then(() => {
-                        alert('متن کپی شد: ' + text);
-                    });
-                });
-            });
-
-            // هندلرهای لمسی
-            lists.forEach(list => {
-                list.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    longPressTimer = setTimeout(() => {
-                        const link = list.closest('.list-wrapper').href;
-                        window.open(link, '_blank');
-                        deactivatePersistent();
-                    }, 500);
-                });
-
-                list.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    clearTimeout(longPressTimer);
-                    if(!activeItem || activeItem !== list) {
-                        activatePersistent(list);
-                    }
-                });
-
-                list.addEventListener('touchmove', (e) => {
-                    e.preventDefault();
-                    clearTimeout(longPressTimer);
-                });
-            });
-
-            // کلیک خارج برای پاک کردن
-            document.addEventListener('click', (e) => {
-                if(!e.target.closest('.list')) {
-                    deactivatePersistent();
-                }
-            });
-
-        } else {
-            // منطق دسکتاپ
-            lists.forEach(list => {
-                list.addEventListener('mouseenter', () => {
-                    list.classList.add('persistent');
-                });
-
-                list.addEventListener('mouseleave', () => {
-                    list.classList.remove('persistent');
-                });
-
-                list.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const link = list.closest('.list-wrapper').href;
-                    window.open(link, '_blank');
-                });
-            });
-        }
-        setTimeout(() => {
-            document.querySelector('.guide').style.display = 'none';
-        }, 5000);
-    </script>
+    // تنظیم لینک تلگرام
+    const telegramLink = document.getElementById('telegram-link');
+    telegramLink.href = isMobile ?
+      'tg://resolve?domain=MehrGol_Organic' :
+      'https://t.me/MehrGol_Organic';
+  </script>
 </body>
 </html>
